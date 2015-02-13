@@ -3,7 +3,7 @@ from zim.command import Command
 from zim.notebook import resolve_notebook, build_notebook
 
 usagehelp ='''\
-usage: zim --plugin linklist [OPTIONS]
+usage: zim --plugin linklist [OPTIONS] <notebook>
 
 --help, -h      Print this help
 --notebook URI  Set notebook to operate on
@@ -20,7 +20,6 @@ List all links throughout the pages
 class LinkListCommand(Command):
     options = (
         ('help',          'h', 'Print this help text and exit'),
-        ('notebook=',     '',  'Select a notebook'),
         ('existing-only', 'e', 'List only existing pages'),
         ('missing-only',  'm', 'List only missing pages'),
     )
@@ -39,8 +38,8 @@ class LinkListCommand(Command):
             return
 
         nbi = None
-        if 'notebook' in self.opts:
-            nbi = resolve_notebook(self.opts['notebook'])
+        if len(self.args) > 0:
+            nbi = resolve_notebook(self.args[0])
 
         if nbi == None:
             print("Notebook must be specified!")
