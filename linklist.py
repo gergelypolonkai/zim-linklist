@@ -2,7 +2,7 @@ from zim.plugins import PluginClass
 from zim.command import Command
 from zim.notebook import resolve_notebook, build_notebook
 
-usagehelp ='''\
+usagehelp = '''\
 usage: zim --plugin linklist [OPTIONS] <notebook>
 
 --help, -h       Print this help
@@ -10,12 +10,14 @@ usage: zim --plugin linklist [OPTIONS] <notebook>
 --missing-only   List only pages that don't exist
 '''
 
+
 class LinkListPlugin(PluginClass):
     plugin_info = {
         'name': 'Link List',
         'description': 'List all links throughout the pages',
         'author': 'Gergely Polonkai',
     }
+
 
 class LinkListCommand(Command):
     options = (
@@ -38,10 +40,11 @@ class LinkListCommand(Command):
             return
 
         nbi = None
+
         if len(self.args) > 0:
             nbi = resolve_notebook(self.args[0])
 
-        if nbi == None:
+        if nbi is None:
             print("Notebook must be specified!")
 
             return
@@ -64,5 +67,8 @@ class LinkListCommand(Command):
 
         for page in self._all_links():
             exists = page.exists()
-            if listing == None or (listing == 'M' and exists == 0) or (listing == 'E' and exists == 1):
+
+            if listing is None or \
+               (listing == 'M' and exists == 0) or \
+               (listing == 'E' and exists == 1):
                 print "%c %s" % ('E' if exists == 1 else 'M', page.name)
