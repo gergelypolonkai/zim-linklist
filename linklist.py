@@ -5,15 +5,15 @@ from zim.notebook import resolve_notebook, build_notebook
 usagehelp ='''\
 usage: zim --plugin linklist [OPTIONS] <notebook>
 
---help, -h      Print this help
---notebook URI  Set notebook to operate on
+--help, -h       Print this help
+--existing-only  List only pages that exist
+--missing-only   List only pages that don't exist
 '''
+
 class LinkListPlugin(PluginClass):
     plugin_info = {
         'name': 'Link List',
-        'description': '''\
-List all links throughout the pages
-        ''',
+        'description': 'List all links throughout the pages',
         'author': 'Gergely Polonkai',
     }
 
